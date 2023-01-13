@@ -1,22 +1,20 @@
 import { Router } from "express";
+import {
+  createEmployees,
+  deleteEmployees,
+  getEmployees,
+  updateEmployees,
+} from "../controllers/employees.controllers.js";
 
 // router viene siendo lo mismo que app, tiene sus metodos get, post, put, delete
 const router = Router();
 
-router.get("/employes", (req, res) => {
-  res.send("Obteniendo empleados");
-});
+router.get("/employes", getEmployees);
 
-router.post("/employes", (req, res) => {
-  res.send("Creando empleados");
-});
+router.post("/employes", createEmployees);
 
-router.put("/employes", (req, res) => {
-  res.send("Actualizando empleados");
-});
+router.put("/employes", updateEmployees);
 
-router.delete("/employes", (req, res) => {
-  res.send("Eliminando empleados");
-});
+router.delete("/employes", deleteEmployees);
 
 export default router;
