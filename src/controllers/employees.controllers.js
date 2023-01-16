@@ -41,6 +41,23 @@ export const createEmployees = async (req, res) => {
   res.send({ id: rows.insertId, name, salary });
 };
 
-export const updateEmployees = (req, res) => {
-  res.send("Actualizando empleados");
+// en mysql no devuelve el dato que actualizamos, solo devuelve el numero de filas afectadas
+export const updateEmployees = async (req, res) => {
+  const { id } = req.params;
+  const { name, salary } = req.body;
+
+  // IFNULL es para validar si el valor es nulo y si es nulo no lo actualiza, lo deja con el valor anterior
+  const [result] = await pool.query(
+    "UPDATE employee SET name = IFNULL(?, name), salary = IFNULL(?, salary) WHERE id = ?",
+    [name, salary, id]
+  );
+  // validamos si hay filas afectadas y si no hay devolvemos un error
+  if (result.affectedRows <= 0) {
+    return res.status(404).json({ status: 404, message: "Employee not found" });
+  }
+  // buscamos el empleado que actualizamos
+  const [rows] = await pool.query("SELECT * FROM employee WHERE id = ?", [id]);
+
+  // enviamos el empleado actualizado
+  res.json(rows[0]);
 };

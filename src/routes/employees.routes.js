@@ -17,7 +17,9 @@ router.get("/employees/:id", getEmployeeById);
 
 router.post("/employees", createEmployees);
 
-router.put("/employees", updateEmployees);
+// de momento estamos actualizando toda la entidad, pero podemos actualizar solo un campo
+// es por eso que usamos el metodo patch
+router.patch("/employees/:id", updateEmployees);
 
 router.delete("/employees/:id", deleteEmployees);
 
