@@ -4,17 +4,21 @@ import {
   deleteEmployees,
   getEmployees,
   updateEmployees,
+  getEmployeeById,
 } from "../controllers/employees.controllers.js";
 
 // router viene siendo lo mismo que app, tiene sus metodos get, post, put, delete
 const router = Router();
 
-router.get("/employes", getEmployees);
+router.get("/employees", getEmployees);
 
-router.post("/employes", createEmployees);
+//agregamos un parametro a la ruta para obtenerlo por id
+router.get("/employees/:id", getEmployeeById);
 
-router.put("/employes", updateEmployees);
+router.post("/employees", createEmployees);
 
-router.delete("/employes", deleteEmployees);
+router.put("/employees", updateEmployees);
+
+router.delete("/employees", deleteEmployees);
 
 export default router;
