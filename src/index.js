@@ -14,7 +14,8 @@ const app = express();
 app.use(express.json());
 
 // app.use es un middleware donde le pasamos las rutas
-app.use(employeesRoutes);
+// '/api' es un prefijo para todas las rutas
+app.use("/api", employeesRoutes);
 app.use(indexRoutes);
 
 app.listen(3000, () => {
